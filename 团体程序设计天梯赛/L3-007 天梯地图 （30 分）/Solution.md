@@ -146,9 +146,7 @@ int findMin(int *arr, bool *collected, int n) {
 	return minV;
 }
 
-void getPath(int *path, int src, int des, int n, vector<int>& vpath) 
-
-{
+void getPath(int *path, int src, int des, int n, vector<int>& vpath) {
 	stack<int> s;
 	while (des != src) {
 		s.push(des);
@@ -161,9 +159,7 @@ void getPath(int *path, int src, int des, int n, vector<int>& vpath)
 	}
 }
 
-int timeDijkstra(int **timeGraph, int **distGraph, int n, int src, 
-
-int des, vector<int>& vpath) {
+int timeDijkstra(int **timeGraph, int **distGraph, int n, int src, int des, vector<int>& vpath) {
 	int *time = new int[n];
 	int *dist = new int[n];
 	int *path = new int[n];
@@ -183,26 +179,14 @@ int des, vector<int>& vpath) {
 		if (minV == des) break;
 		collected[minV] = true;
 		for (int v = 0; v < n; v++) {
-			if (!collected[v] && timeGraph[minV][v] < 
-
-INF) {
-				if (time[minV] + timeGraph[minV][v] 
-
-< time[v]) {
-					time[v] = time[minV] + 
-
-timeGraph[minV][v];
-					dist[v] = dist[minV] + 
-
-distGraph[minV][v];
+			if (!collected[v] && timeGraph[minV][v] < INF) {
+				if (time[minV] + timeGraph[minV][v] < time[v]) {
+					time[v] = time[minV] + timeGraph[minV][v];
+					dist[v] = dist[minV] + distGraph[minV][v];
 					path[v] = minV;
 				}
-				else if (time[minV] + timeGraph
-
-[minV][v] == time[v] && dist[minV] + distGraph[minV][v] < dist[v]) {
-					dist[v] = dist[minV] + 
-
-distGraph[minV][v];
+				else if (time[minV] + timeGraph[minV][v] == time[v] && dist[minV] + distGraph[minV][v] < dist[v]) {
+					dist[v] = dist[minV] + distGraph[minV][v];
 					path[v] = minV;
 				}
 			}
@@ -217,9 +201,7 @@ distGraph[minV][v];
 	return result;
 }
 
-int distDijkstra(int **distGraph, int n, int src, int des, 
-
-vector<int>& vpath) {
+int distDijkstra(int **distGraph, int n, int src, int des, vector<int>& vpath) {
 	int *dist = new int[n];
 	int *num = new int[n];
 	int *path = new int[n];
@@ -240,21 +222,13 @@ vector<int>& vpath) {
 		if (minV == des) break;
 		collected[minV] = true;
 		for (int v = 0; v < n; v++) {
-			if (!collected[v] && distGraph[minV][v] < 
-
-INF) {
-				if (dist[minV] + distGraph[minV][v] 
-
-< dist[v]) {
-					dist[v] = dist[minV] + 
-
-distGraph[minV][v];
+			if (!collected[v] && distGraph[minV][v] < INF) {
+				if (dist[minV] + distGraph[minV][v] < dist[v]) {
+					dist[v] = dist[minV] + distGraph[minV][v];
 					num[v] = num[minV] + 1;
 					path[v] = minV;
 				}
-				else if (dist[minV] + distGraph
-
-[minV][v] == dist[v] && num[minV] + 1 < num[v]) {
+				else if (dist[minV] + distGraph[minV][v] == dist[v] && num[minV] + 1 < num[v]) {
 					num[v] = num[minV] + 1;
 					path[v] = minV;
 				}
@@ -295,9 +269,7 @@ int main()
 	int src, des;
 	std::cin >> src >> des;
 	vector<int> timePath;
-	int t = timeDijkstra(timeGraph, distGraph, n, src, des, 
-
-timePath);
+	int t = timeDijkstra(timeGraph, distGraph, n, src, des, timePath);
 	for (int i = 0; i < n; i++)
 		free(timeGraph[i]);
 	free(timeGraph);
@@ -318,26 +290,20 @@ timePath);
 	}
 	if (equal) {
 		printf("Time = %d; Distance = %d: ", t, d);
-		for (auto it = timePath.begin(); it != timePath.end
-
-(); it++) {
+		for (auto it = timePath.begin(); it != timePath.end(); it++) {
 			if (it != timePath.begin()) cout << " => ";
 			cout << *it;
 		}
 	}
 	else {
 		printf("Time = %d: ", t);
-		for (auto it = timePath.begin(); it != timePath.end
-
-(); it++) {
+		for (auto it = timePath.begin(); it != timePath.end(); it++) {
 			if (it != timePath.begin()) cout << " => ";
 			cout << *it;
 		}
 		cout << endl;
 		printf("Distance = %d: ", d);
-		for (auto it = distPath.begin(); it != distPath.end
-
-(); it++) {
+		for (auto it = distPath.begin(); it != distPath.end(); it++) {
 			if (it != distPath.begin()) cout << " => ";
 			cout << *it;
 		}
